@@ -2,29 +2,29 @@ package ru.netology
 
 fun main() {
 
-    println(commisionCalculation("Visa", 1000, 79000))
+    println(commissionCalculation("Visa", 1000, 79000))
 
 }
 
-fun commisionCalculation(
+fun commissionCalculation(
     cardType: String = "Vk Pay",
     previousTranslations: Int = 0,
     transferAmount: Int,
-): Double {
-    val commision = when (cardType) {
+): Int {
+    val commission = when (cardType) {
         "VK Pay" -> 0
 
-        "Mastercard", "Maestro" ->             if (transferAmount > 300 && previousTranslations < 75000){
-
-        } else {transferAmount*0.006 + 20}
+        "Mastercard", "Maestro" ->             if ((transferAmount > 300) && ((previousTranslations + transferAmount) < 75000)){
+            0
+        } else {(transferAmount*0.006 + 20).toInt()}
 
         "Visa", "Мир" -> if (transferAmount * 0.075 < 35) {
             35
         } else {
-            transferAmount * 0.075
+            (transferAmount * 0.075).toInt()
         }
         else -> 0
     }
-    return commision as Double
+    return commission
 }
 
